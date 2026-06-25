@@ -1,7 +1,7 @@
 import { MEMBER } from '../data';
 import { SectionContainer } from '../ui/container';
 
-export const PointSection = ({
+export const Point = ({
   usePoint,
   onToggleCheckbox,
   pointInput,

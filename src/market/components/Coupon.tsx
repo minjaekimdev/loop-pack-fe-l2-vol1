@@ -1,7 +1,7 @@
 import type { Coupon } from '../types/types';
 import { SectionContainer } from '../ui/container';
 
-export const CouponSection = ({
+export const Coupon = ({
   couponCode,
   onInputChange,
   onApplyButtonClick,

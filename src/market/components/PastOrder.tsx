@@ -2,7 +2,7 @@ import { PAST_ORDERS } from '../data';
 import { OrderStatusTag } from './OrderStatusTag';
 import { SectionContainer } from '../ui/container';
 
-export const PastOrderSection = () => {
+export const PastOrder = () => {
   return (
     <SectionContainer title="최근 주문">
       {PAST_ORDERS.map((o) => (

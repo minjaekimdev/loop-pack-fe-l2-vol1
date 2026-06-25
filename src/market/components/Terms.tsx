@@ -1,7 +1,7 @@
 import { useModal } from '../../shared/ui/modal/useModal';
 import { SectionContainer } from '../ui/container';
 
-export const TermsSection = ({
+export const Terms = ({
   agreed,
   onToggleCheckbox,
 }: {

@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import type { Coupon, PaymentMethod } from './types/types';
+import type { Coupon as CouponType, PaymentMethod as PaymentMethodType } from './types/types';
 import { ADDRESSES, CART, COUPONS, MEMBER } from './data';
 import './market.css';
-import { DeliverySection } from './components/DeliverySection';
+import { Delivery } from './components/Delivery';
 import { CheckoutContainer } from './ui/container';
-import { CouponSection } from './components/CouponSection';
-import { OrderItemSection } from './components/OrderItemSection';
-import { RequestSection } from './components/RequestSection';
-import { PointSection } from './components/PointSection';
+import { Coupon } from './components/Coupon';
+import { OrderItem } from './components/OrderItem';
+import { Request } from './components/Request';
+import { Point } from './components/Point';
 import { CheckoutComplete } from './components/CheckoutComplete';
-import { PastOrderSection } from './components/PastOrderSection';
-import { PaymentMethodSection } from './components/PaymentMethodSection';
-import { FinalPriceSection } from './components/FinalPriceSection';
-import { TermsSection } from './components/TermsSection';
+import { PastOrder } from './components/PastOrder';
+import { PaymentMethod } from './components/PaymentMethod';
+import { FinalPrice } from './components/FinalPrice';
+import { Terms } from './components/Terms';
 import { useCheckout } from './utils/calculateCheckout';
 import { ModalProvider } from '../shared/ui/modal/ModalProvider';
 import { TermsModal } from './components/TermsModal';
@@ -25,10 +25,10 @@ export function CheckoutPage() {
 
   const [selectedAddressId, setSelectedAddressId] = useState(ADDRESSES[0].id);
   const [couponCode, setCouponCode] = useState('');
-  const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
+  const [appliedCoupon, setAppliedCoupon] = useState<CouponType | null>(null);
   const [usePoint, setUsePoint] = useState(false);
   const [pointInput, setPointInput] = useState(0);
-  const [payment, setPayment] = useState<PaymentMethod>('card');
+  const [payment, setPayment] = useState<PaymentMethodType>('card');
   const [agreed, setAgreed] = useState(false);
   const [placed, setPlaced] = useState(false);
 
@@ -60,29 +60,29 @@ export function CheckoutPage() {
   return (
     <CheckoutContainer>
       <ModalProvider>
-        <DeliverySection
+        <Delivery
           addresses={ADDRESSES}
           selectedAddressId={selectedAddressId}
           onSelectAddress={setSelectedAddressId}
         />
-        <RequestSection />
-        <OrderItemSection />
-        <CouponSection
+        <Request />
+        <OrderItem />
+        <Coupon
           couponCode={couponCode}
           onInputChange={(e) => setCouponCode(e.target.value)}
           onApplyButtonClick={handleApplyCoupon}
           appliedCoupon={appliedCoupon}
         />
 
-        <PointSection
+        <Point
           usePoint={usePoint}
           onToggleCheckbox={(e) => setUsePoint(e.target.checked)}
           pointInput={pointInput}
           onInputChange={(e) => setPointInput(Number(e.target.value.replaceAll(',', '')))}
         />
 
-        <PaymentMethodSection payment={payment} onPaymentMethodChange={(m) => setPayment(m)} />
-        <FinalPriceSection
+        <PaymentMethod payment={payment} onPaymentMethodChange={(m) => setPayment(m)} />
+        <FinalPrice
           itemTotal={itemTotal}
           shippingFee={shippingFee}
           appliedCoupon={appliedCoupon}
@@ -92,7 +92,7 @@ export function CheckoutPage() {
           pointDiscount={pointDiscount}
           finalPrice={finalPrice}
         />
-        <TermsSection
+        <Terms
           agreed={agreed}
           onToggleCheckbox={(e: React.ChangeEvent<HTMLInputElement>) => setAgreed(e.target.checked)}
         />
@@ -100,7 +100,7 @@ export function CheckoutPage() {
           {finalPrice.toLocaleString()}원 결제하기
         </button>
         <TermsModal />
-        <PastOrderSection />
+        <PastOrder />
       </ModalProvider>
     </CheckoutContainer>
   );

@@ -8,7 +8,7 @@ const PAYMENT_LABEL: Record<PaymentMethod, string> = {
   kakao: '카카오페이',
 };
 
-export const PaymentMethodSection = ({
+export const PaymentMethod = ({
   payment,
   onPaymentMethodChange,
 }: {

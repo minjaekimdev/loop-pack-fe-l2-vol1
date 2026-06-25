@@ -5,7 +5,7 @@ import type { Coupon } from '../types/types';
 import { SectionContainer } from '../ui/container';
 
 // TODO: 전달받는 props에 파생값이 포함되어 있지 않은지 확인하기
-export const FinalPriceSection = ({
+export const FinalPrice = ({
   itemTotal,
   shippingFee,
   appliedCoupon,

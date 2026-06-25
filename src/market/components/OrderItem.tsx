@@ -2,7 +2,7 @@ import { CART } from '../data';
 import { OrderLineRow } from './OrderLineRow';
 import { SectionContainer } from '../ui/container';
 
-export const OrderItemSection = () => {
+export const OrderItem = () => {
   const cart = CART;
   return (
     <SectionContainer title="주문 상품">

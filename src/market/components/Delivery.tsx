@@ -52,7 +52,7 @@ function AddressForm({
   );
 }
 
-export const DeliverySection = ({
+export const Delivery = ({
   addresses,
   selectedAddressId,
   onSelectAddress,
