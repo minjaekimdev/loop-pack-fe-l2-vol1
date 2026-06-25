@@ -13,6 +13,7 @@ import { PastOrderSection } from './components/PastOrderSection';
 import { PaymentMethodSection } from './components/PaymentMethodSection';
 import { FinalPriceSection } from './components/FinalPriceSection';
 import { TermsSection } from './components/TermsSection';
+import { useCheckout } from './hooks/useCheckout';
 
 // 결제 페이지 전체의 흐름과 레이아웃이라는 페이지 컴포넌트 본연의 역할에만 집중할 수 있도록(1, 2, 3 위배)
 // TODO: 하위 컴포넌트로 전달하는 props의 성격 확인하기
@@ -33,21 +34,14 @@ export function CheckoutPage() {
 
   const address = ADDRESSES.find((a) => a.id === selectedAddressId)!;
 
-  // ── 배송비 정책 ──────────────────────────────
-  const itemTotal = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
-  let shippingFee = 3000;
-  if (itemTotal >= 50000) shippingFee = 0;
-  if (address.isRemote) shippingFee += 3000;
-
-  // ── 쿠폰 정책 ────────────────────────────────
-  const couponDiscount = appliedCoupon ? appliedCoupon.discount : 0;
-
-  // ── 적립금 정책 ──────────────────────────────
-  const pointDiscount = usePoint ? Math.min(pointInput, member.point, itemTotal) : 0;
-
-  // 최종 금액은 직접 계산한다.
-  // 가격 계산 로직 -> 커스텀 훅으로 빼면 좋을듯?
-  const finalPrice = itemTotal + shippingFee - couponDiscount - pointDiscount;
+  const { itemTotal, shippingFee, couponDiscount, pointDiscount, finalPrice } = useCheckout(
+    cart,
+    address,
+    appliedCoupon,
+    usePoint,
+    pointInput,
+    member
+  );
 
   const handleApplyCoupon = () => {
     const found = COUPONS.find((c) => c.code === couponCode.trim());
@@ -92,6 +86,7 @@ export function CheckoutPage() {
         shippingFee={shippingFee}
         appliedCoupon={appliedCoupon}
         couponDiscount={couponDiscount}
+        // 포인트를 사용한다는 것은 usePoint가 아니라 pointDiscount를 내려주는 것만으로 가능?
         usePoint={usePoint}
         pointDiscount={pointDiscount}
         finalPrice={finalPrice}
