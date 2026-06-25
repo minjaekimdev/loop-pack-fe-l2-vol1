@@ -9,7 +9,6 @@ export const OrderItem = () => {
       {cart.map((it) => (
         <OrderLineRow
           key={it.id}
-          type="product"
           label={it.name}
           amount={it.price * it.quantity}
           thumbnail={it.thumbnail}
