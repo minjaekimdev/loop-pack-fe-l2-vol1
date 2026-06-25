@@ -14,6 +14,8 @@ import { PaymentMethodSection } from './components/PaymentMethodSection';
 import { FinalPriceSection } from './components/FinalPriceSection';
 import { TermsSection } from './components/TermsSection';
 import { useCheckout } from './utils/calculateCheckout';
+import { ModalProvider } from '../shared/ui/modal/ModalProvider';
+import { TermsModal } from './components/TermsModal';
 
 // 결제 페이지 전체의 흐름과 레이아웃이라는 페이지 컴포넌트 본연의 역할에만 집중할 수 있도록(1, 2, 3 위배)
 // TODO: 하위 컴포넌트로 전달하는 props의 성격 확인하기
@@ -27,7 +29,6 @@ export function CheckoutPage() {
   const [usePoint, setUsePoint] = useState(false);
   const [pointInput, setPointInput] = useState(0);
   const [payment, setPayment] = useState<PaymentMethod>('card');
-  const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [placed, setPlaced] = useState(false);
 
@@ -58,56 +59,49 @@ export function CheckoutPage() {
 
   return (
     <CheckoutContainer>
-      <DeliverySection
-        addresses={ADDRESSES}
-        selectedAddressId={selectedAddressId}
-        onSelectAddress={setSelectedAddressId}
-      />
-      <RequestSection />
-      <OrderItemSection />
-      <CouponSection
-        couponCode={couponCode}
-        onInputChange={(e) => setCouponCode(e.target.value)}
-        onApplyButtonClick={handleApplyCoupon}
-        appliedCoupon={appliedCoupon}
-      />
+      <ModalProvider>
+        <DeliverySection
+          addresses={ADDRESSES}
+          selectedAddressId={selectedAddressId}
+          onSelectAddress={setSelectedAddressId}
+        />
+        <RequestSection />
+        <OrderItemSection />
+        <CouponSection
+          couponCode={couponCode}
+          onInputChange={(e) => setCouponCode(e.target.value)}
+          onApplyButtonClick={handleApplyCoupon}
+          appliedCoupon={appliedCoupon}
+        />
 
-      <PointSection
-        usePoint={usePoint}
-        onToggleCheckbox={(e) => setUsePoint(e.target.checked)}
-        pointInput={pointInput}
-        onInputChange={(e) => setPointInput(Number(e.target.value.replaceAll(',', '')))}
-      />
+        <PointSection
+          usePoint={usePoint}
+          onToggleCheckbox={(e) => setUsePoint(e.target.checked)}
+          pointInput={pointInput}
+          onInputChange={(e) => setPointInput(Number(e.target.value.replaceAll(',', '')))}
+        />
 
-      <PaymentMethodSection payment={payment} onPaymentMethodChange={(m) => setPayment(m)} />
-      <FinalPriceSection
-        itemTotal={itemTotal}
-        shippingFee={shippingFee}
-        appliedCoupon={appliedCoupon}
-        couponDiscount={couponDiscount}
-        // 포인트를 사용한다는 것은 usePoint가 아니라 pointDiscount를 내려주는 것만으로 가능?
-        usePoint={usePoint}
-        pointDiscount={pointDiscount}
-        finalPrice={finalPrice}
-      />
-      <TermsSection
-        agreed={agreed}
-        onToggleCheckbox={(e: React.ChangeEvent<HTMLInputElement>) => setAgreed(e.target.checked)}
-        onButtonClick={() => setIsTermsOpen(true)}
-      />
-      <button className="pay" disabled={!agreed} onClick={() => setPlaced(true)}>
-        {finalPrice.toLocaleString()}원 결제하기
-      </button>
-      {isTermsOpen ? (
-        <div className="modal" onClick={() => setIsTermsOpen(false)}>
-          <div className="modal-body" onClick={(e) => e.stopPropagation()}>
-            <h3>이용 약관</h3>
-            <p>주문 후 7일 이내 단순 변심 반품이 가능하며, 도서산간은 배송비가 추가됩니다.</p>
-            <button onClick={() => setIsTermsOpen(false)}>닫기</button>
-          </div>
-        </div>
-      ) : null}
-      <PastOrderSection />
+        <PaymentMethodSection payment={payment} onPaymentMethodChange={(m) => setPayment(m)} />
+        <FinalPriceSection
+          itemTotal={itemTotal}
+          shippingFee={shippingFee}
+          appliedCoupon={appliedCoupon}
+          couponDiscount={couponDiscount}
+          // 포인트를 사용한다는 것은 usePoint가 아니라 pointDiscount를 내려주는 것만으로 가능?
+          usePoint={usePoint}
+          pointDiscount={pointDiscount}
+          finalPrice={finalPrice}
+        />
+        <TermsSection
+          agreed={agreed}
+          onToggleCheckbox={(e: React.ChangeEvent<HTMLInputElement>) => setAgreed(e.target.checked)}
+        />
+        <button className="pay" disabled={!agreed} onClick={() => setPlaced(true)}>
+          {finalPrice.toLocaleString()}원 결제하기
+        </button>
+        <TermsModal />
+        <PastOrderSection />
+      </ModalProvider>
     </CheckoutContainer>
   );
 }
