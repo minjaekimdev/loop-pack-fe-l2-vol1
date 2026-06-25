@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import type { Coupon, PaymentMethod } from './types';
+import type { Coupon, PaymentMethod } from './types/types';
 import { ADDRESSES, CART, COUPONS, MEMBER } from './data';
 import './market.css';
 import { DeliverySection } from './components/DeliverySection';
-import { CheckoutContainer } from './components/container';
+import { CheckoutContainer } from './ui/container';
 import { CouponSection } from './components/CouponSection';
 import { OrderItemSection } from './components/OrderItemSection';
 import { RequestSection } from './components/RequestSection';
@@ -13,7 +13,7 @@ import { PastOrderSection } from './components/PastOrderSection';
 import { PaymentMethodSection } from './components/PaymentMethodSection';
 import { FinalPriceSection } from './components/FinalPriceSection';
 import { TermsSection } from './components/TermsSection';
-import { useCheckout } from './hooks/useCheckout';
+import { useCheckout } from './utils/calculateCheckout';
 
 // 결제 페이지 전체의 흐름과 레이아웃이라는 페이지 컴포넌트 본연의 역할에만 집중할 수 있도록(1, 2, 3 위배)
 // TODO: 하위 컴포넌트로 전달하는 props의 성격 확인하기
@@ -21,7 +21,6 @@ export function CheckoutPage() {
   const member = MEMBER;
   const cart = CART;
 
-  // TODO: 객체로 관리하는 것 고려하기
   const [selectedAddressId, setSelectedAddressId] = useState(ADDRESSES[0].id);
   const [couponCode, setCouponCode] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
@@ -34,6 +33,7 @@ export function CheckoutPage() {
 
   const address = ADDRESSES.find((a) => a.id === selectedAddressId)!;
 
+  // 결제 금액을 구하는 비즈니스 로직은 별도 함수로 분리
   const { itemTotal, shippingFee, couponDiscount, pointDiscount, finalPrice } = useCheckout(
     cart,
     address,
@@ -80,7 +80,6 @@ export function CheckoutPage() {
       />
 
       <PaymentMethodSection payment={payment} onPaymentMethodChange={(m) => setPayment(m)} />
-      {/* TODO: 결제금액 구하는 로직 검토하기 */}
       <FinalPriceSection
         itemTotal={itemTotal}
         shippingFee={shippingFee}
@@ -99,7 +98,6 @@ export function CheckoutPage() {
       <button className="pay" disabled={!agreed} onClick={() => setPlaced(true)}>
         {finalPrice.toLocaleString()}원 결제하기
       </button>
-      {/* TODO: 모달은 headless ui 패턴으로 관리하고 container(shared) 위치에 함께 두기 */}
       {isTermsOpen ? (
         <div className="modal" onClick={() => setIsTermsOpen(false)}>
           <div className="modal-body" onClick={(e) => e.stopPropagation()}>

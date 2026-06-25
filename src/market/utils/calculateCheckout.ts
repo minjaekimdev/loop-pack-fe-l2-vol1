@@ -1,4 +1,4 @@
-import type { CartItem, Address, Coupon, Member } from '../types';
+import type { CartItem, Address, Coupon, Member } from '../types/types';
 
 export const useCheckout = (
   cart: CartItem[],

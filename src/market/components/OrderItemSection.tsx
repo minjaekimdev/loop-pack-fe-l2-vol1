@@ -1,6 +1,6 @@
 import { CART } from '../data';
-import { OrderLineRow } from '../OrderLineRow';
-import { SectionContainer } from './container';
+import { OrderLineRow } from './OrderLineRow';
+import { SectionContainer } from '../ui/container';
 
 export const OrderItemSection = () => {
   const cart = CART;

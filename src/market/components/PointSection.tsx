@@ -1,5 +1,5 @@
 import { MEMBER } from '../data';
-import { SectionContainer } from './container';
+import { SectionContainer } from '../ui/container';
 
 export const PointSection = ({
   usePoint,

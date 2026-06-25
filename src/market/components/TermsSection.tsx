@@ -1,4 +1,4 @@
-import { SectionContainer } from './container';
+import { SectionContainer } from '../ui/container';
 
 export const TermsSection = ({
   agreed,

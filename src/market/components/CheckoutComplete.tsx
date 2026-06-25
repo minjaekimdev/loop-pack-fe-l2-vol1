@@ -1,4 +1,4 @@
-import { CheckoutContainer } from './container';
+import { CheckoutContainer } from '../ui/container';
 
 export const CheckoutComplete = ({
   finalPrice,
