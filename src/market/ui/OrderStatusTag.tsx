@@ -6,6 +6,7 @@ type Props = {
   isCancelled?: boolean;
 };
 
+// TODO: boolean 폭발
 export function OrderStatusTag({
   isPaid,
   isPreparing,

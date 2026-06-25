@@ -1,5 +1,5 @@
-import { useModal } from '../../../shared/ui/modal/useModal';
-import { SectionContainer } from '../../../shared/ui/container';
+import { useModal } from '../../shared/ui/modal/useModal';
+import { SectionContainer } from '../../shared/ui/container';
 
 export const Terms = ({
   agreed,

@@ -11,6 +11,7 @@ type Props = {
   couponCode?: string;
 };
 
+// TODO: props 객체화
 export function OrderLineRow({
   type,
   label,

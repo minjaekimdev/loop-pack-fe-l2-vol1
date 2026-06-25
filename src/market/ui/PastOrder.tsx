@@ -1,7 +1,8 @@
 import { PAST_ORDERS } from '../data';
 import { OrderStatusTag } from './OrderStatusTag';
-import { SectionContainer } from '../../../shared/ui/container';
+import { SectionContainer } from '../../shared/ui/container';
 
+// TODO: boolean 폭발
 export const PastOrder = () => {
   return (
     <SectionContainer title="최근 주문">

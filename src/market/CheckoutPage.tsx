@@ -3,7 +3,7 @@ import type { Coupon as CouponType, PaymentMethod as PaymentMethodType } from '.
 import { ADDRESSES, CART, COUPONS, MEMBER } from './data';
 import './market.css';
 import { Delivery } from './ui/Delivery';
-import { CheckoutContainer } from '../../shared/ui/container';
+import { CheckoutContainer } from '../shared/ui/container';
 import { Coupon } from './ui/Coupon';
 import { OrderItem } from './ui/OrderItem';
 import { Request } from './ui/Request';
@@ -14,7 +14,7 @@ import { PaymentMethod } from './ui/PaymentMethod';
 import { FinalPrice } from './ui/FinalPrice';
 import { Terms } from './ui/Terms';
 import { useCheckout } from './utils/calculateCheckout';
-import { ModalProvider } from '../../shared/ui/modal/ModalProvider';
+import { ModalProvider } from '../shared/ui/modal/ModalProvider';
 import { TermsModal } from './ui/TermsModal';
 
 // 결제 페이지 전체의 흐름과 레이아웃이라는 페이지 컴포넌트 본연의 역할에만 집중할 수 있도록(1, 2, 3 위배)

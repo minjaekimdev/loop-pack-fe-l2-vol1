@@ -1,4 +1,4 @@
-import { CheckoutPage } from './features/market/CheckoutPage';
+import { CheckoutPage } from './market/CheckoutPage';
 
 function App() {
   return <CheckoutPage />;
