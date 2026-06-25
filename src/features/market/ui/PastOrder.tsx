@@ -1,6 +1,6 @@
 import { PAST_ORDERS } from '../data';
 import { OrderStatusTag } from './OrderStatusTag';
-import { SectionContainer } from '../ui/container';
+import { SectionContainer } from '../../../shared/ui/container';
 
 export const PastOrder = () => {
   return (

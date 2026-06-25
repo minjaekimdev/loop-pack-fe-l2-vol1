@@ -1,7 +1,7 @@
-import { CheckoutPage } from './market/CheckoutPage'
+import { CheckoutPage } from './features/market/CheckoutPage';
 
 function App() {
-  return <CheckoutPage />
+  return <CheckoutPage />;
 }
 
-export default App
+export default App;

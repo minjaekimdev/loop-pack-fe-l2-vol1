@@ -1,5 +1,5 @@
-import { Modal } from '../../shared/ui/modal/ModalProvider';
-import { useModal } from '../../shared/ui/modal/useModal';
+import { Modal } from '../../../shared/ui/modal/ModalProvider';
+import { useModal } from '../../../shared/ui/modal/useModal';
 
 export const TermsModal = () => {
   const { close } = useModal();

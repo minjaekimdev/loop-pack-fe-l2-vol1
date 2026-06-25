@@ -2,7 +2,7 @@ import { MEMBER } from '../data';
 import { OrderLineRow } from './OrderLineRow';
 import { Price } from './Price';
 import type { Coupon } from '../types/types';
-import { SectionContainer } from '../ui/container';
+import { SectionContainer } from '../../../shared/ui/container';
 
 // TODO: 전달받는 props에 파생값이 포함되어 있지 않은지 확인하기
 export const FinalPrice = ({

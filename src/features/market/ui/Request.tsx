@@ -1,5 +1,5 @@
 import { DeliveryMemo } from './DeliveryMemo';
-import { SectionContainer } from '../ui/container';
+import { SectionContainer } from '../../../shared/ui/container';
 
 // 요청사항 섹션 별도로 분리(추후 기능 추가 가능)
 export const Request = () => {
