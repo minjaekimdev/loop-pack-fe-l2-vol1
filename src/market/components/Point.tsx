@@ -3,13 +3,13 @@ import { SectionContainer } from '../ui/container';
 
 export const Point = ({
   usePoint,
-  onToggleCheckbox,
   pointInput,
+  onToggleCheckbox,
   onInputChange,
 }: {
   usePoint: boolean;
-  onToggleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
   pointInput: number;
+  onToggleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   const member = MEMBER;

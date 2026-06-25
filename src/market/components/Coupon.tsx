@@ -1,16 +1,16 @@
-import type { Coupon } from '../types/types';
+import type { Coupon as CouponType } from '../types/types';
 import { SectionContainer } from '../ui/container';
 
 export const Coupon = ({
   couponCode,
+  appliedCoupon,
   onInputChange,
   onApplyButtonClick,
-  appliedCoupon,
 }: {
   couponCode: string;
+  appliedCoupon: CouponType | null;
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // handleCouponCode라는 이름이 적절한가?
   onApplyButtonClick: () => void;
-  appliedCoupon: Coupon | null;
 }) => {
   return (
     <SectionContainer title="쿠폰">

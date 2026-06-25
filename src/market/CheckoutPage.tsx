@@ -69,15 +69,15 @@ export function CheckoutPage() {
         <OrderItem />
         <Coupon
           couponCode={couponCode}
+          appliedCoupon={appliedCoupon}
           onInputChange={(e) => setCouponCode(e.target.value)}
           onApplyButtonClick={handleApplyCoupon}
-          appliedCoupon={appliedCoupon}
         />
 
         <Point
           usePoint={usePoint}
-          onToggleCheckbox={(e) => setUsePoint(e.target.checked)}
           pointInput={pointInput}
+          onToggleCheckbox={(e) => setUsePoint(e.target.checked)}
           onInputChange={(e) => setPointInput(Number(e.target.value.replaceAll(',', '')))}
         />
 
