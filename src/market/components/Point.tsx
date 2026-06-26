@@ -1,4 +1,4 @@
-import { SectionContainer } from '../../shared/ui/container';
+import { SectionContainer } from '../shared/ui/container';
 
 export const Point = ({
   usePoint,

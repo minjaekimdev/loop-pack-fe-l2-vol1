@@ -1,5 +1,5 @@
-import type { Coupon as CouponType } from '../types/types';
-import { SectionContainer } from '../../shared/ui/container';
+import type { Coupon as CouponType } from '../shared/types/types';
+import { SectionContainer } from '../shared/ui/container';
 
 export const Coupon = ({
   couponCode,

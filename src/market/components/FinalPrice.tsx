@@ -1,7 +1,7 @@
 import { PriceLineRow } from './PriceLineRow';
 import { Price } from './Price';
-import { SectionContainer } from '../../shared/ui/container';
-import type { Coupon } from '../types/types';
+import { SectionContainer } from '../shared/ui/container';
+import type { Coupon } from '../shared/types/types';
 
 export const FinalPrice = ({
   itemTotal,

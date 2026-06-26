@@ -1,4 +1,4 @@
-import type { Address, CartItem, Coupon, Member, PastOrder } from './types/types';
+import type { Address, CartItem, Coupon, Member, PastOrder } from './shared/types/types';
 
 export const CART: CartItem[] = [
   {

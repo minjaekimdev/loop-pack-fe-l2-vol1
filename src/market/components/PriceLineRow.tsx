@@ -1,4 +1,4 @@
-import type { PriceType } from '../types/types';
+import type { PriceType } from '../shared/types/types';
 
 const LABEL_MAP: Record<PriceType, string> = {
   subtotal: '상품 금액',

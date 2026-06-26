@@ -1,4 +1,4 @@
-import { CheckoutContainer } from '../../shared/ui/container';
+import { CheckoutContainer } from '../shared/ui/container';
 import { Price } from './Price';
 
 export const CheckoutComplete = ({

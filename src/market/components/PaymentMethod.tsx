@@ -1,5 +1,5 @@
-import type { PaymentMethod as PaymentMethodType } from '../types/types';
-import { SectionContainer } from '../../shared/ui/container';
+import type { PaymentMethod as PaymentMethodType } from '../shared/types/types';
+import { SectionContainer } from '../shared/ui/container';
 
 const PAYMENT_METHODS: PaymentMethodType[] = ['card', 'transfer', 'kakao'];
 const PAYMENT_LABEL: Record<PaymentMethodType, string> = {

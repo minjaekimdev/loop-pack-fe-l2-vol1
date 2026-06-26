@@ -16,7 +16,7 @@ export const SectionContainer = ({ title, children }: SectionProps) => {
 export const CheckoutContainer = ({ title, children }: SectionProps) => {
   return (
     <div className="checkout">
-      <h1>{title}</h1>
+      {title && <h1>{title}</h1>}
       {children}
     </div>
   );

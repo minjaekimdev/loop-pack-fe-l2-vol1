@@ -1,4 +1,4 @@
-import type { OrderStatus } from '../types/types';
+import type { OrderStatus } from '../shared/types/types';
 
 // 객체를 활용하여 label과 color 매핑
 const STATUS_MAP: Record<OrderStatus, { label: string; color: string }> = {

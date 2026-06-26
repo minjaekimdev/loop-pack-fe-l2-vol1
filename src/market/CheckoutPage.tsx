@@ -1,23 +1,26 @@
 import { useState } from 'react';
-import type { Coupon as CouponType, PaymentMethod as PaymentMethodType } from './types/types';
+import type {
+  Coupon as CouponType,
+  PaymentMethod as PaymentMethodType,
+} from './shared/types/types';
 import { ADDRESSES, CART, COUPONS, MEMBER } from './data';
 import './market.css';
-import { Delivery } from './ui/Delivery';
-import { CheckoutContainer } from '../shared/ui/container';
-import { Coupon } from './ui/Coupon';
-import { OrderItem } from './ui/OrderItem';
-import { Request } from './ui/Request';
-import { Point } from './ui/Point';
-import { CheckoutComplete } from './ui/CheckoutComplete';
-import { PastOrder } from './ui/PastOrder';
-import { PaymentMethod } from './ui/PaymentMethod';
-import { FinalPrice } from './ui/FinalPrice';
-import { Terms } from './ui/Terms';
+import { Delivery } from './components/Delivery';
+import { CheckoutContainer } from './shared/ui/container';
+import { Coupon } from './components/Coupon';
+import { OrderItem } from './components/OrderItem';
+import { Request } from './components/Request';
+import { Point } from './components/Point';
+import { CheckoutComplete } from './components/CheckoutComplete';
+import { PastOrder } from './components/PastOrder';
+import { PaymentMethod } from './components/PaymentMethod';
+import { FinalPrice } from './components/FinalPrice';
+import { Terms } from './components/Terms';
 import { ModalProvider } from '../shared/ui/modal/ModalProvider';
-import { TermsModal } from './ui/TermsModal';
-import { Price } from './ui/Price';
+import { TermsModal } from './components/TermsModal';
+import { Price } from './components/Price';
 import { calculateShippingFee } from './utils/calculateShipppingFee';
-import { DISCOUNT_RATE } from '../shared/constants/gradeDiscount';
+import { DISCOUNT_RATE } from './shared/constants/gradeDiscount';
 
 // 결제 페이지 전체의 흐름과 레이아웃이라는 페이지 컴포넌트 본연의 역할에만 집중할 수 있도록(1, 2, 3 위배)
 export function CheckoutPage() {
