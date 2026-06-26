@@ -1,25 +1,25 @@
-import { MEMBER } from '../data';
 import { SectionContainer } from '../../shared/ui/container';
 
 export const Point = ({
   usePoint,
   pointInput,
+  availablePoint,
   onToggleCheckbox,
   onInputChange,
 }: {
   usePoint: boolean;
   pointInput: number;
+  availablePoint: number;
   onToggleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
-  const member = MEMBER;
   // 입력 금액이 보유 포인트보다 높을 경우 자동으로 보유 포인트가 입력되도록 설정
-  const pointValue = pointInput > member.point ? member.point : pointInput;
+  const pointValue = pointInput > availablePoint ? availablePoint : pointInput;
   return (
     <SectionContainer title="적립금">
       <label>
         <input type="checkbox" checked={usePoint} onChange={onToggleCheckbox} />
-        적립금 사용 (보유 {member.point.toLocaleString()}P)
+        적립금 사용 (보유 {availablePoint.toLocaleString()}P)
       </label>
       {usePoint ? (
         <input

@@ -75,6 +75,7 @@ export function CheckoutPage() {
         <Point
           usePoint={usePoint}
           pointInput={pointInput}
+          availablePoint={member.point}
           onToggleCheckbox={(e) => setUsePoint(e.target.checked)}
           onInputChange={(e) => setPointInput(Number(e.target.value.replaceAll(',', '')))}
         />
