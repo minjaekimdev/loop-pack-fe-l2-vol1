@@ -17,6 +17,7 @@ import { ModalProvider } from '../shared/ui/modal/ModalProvider';
 import { TermsModal } from './ui/TermsModal';
 import { Price } from './ui/Price';
 import { calculateShippingFee } from './utils/calculateShipppingFee';
+import { DISCOUNT_RATE } from '../shared/constants/gradeDiscount';
 
 // 결제 페이지 전체의 흐름과 레이아웃이라는 페이지 컴포넌트 본연의 역할에만 집중할 수 있도록(1, 2, 3 위배)
 export function CheckoutPage() {
@@ -37,7 +38,9 @@ export function CheckoutPage() {
   const shippingFee = calculateShippingFee(itemTotal, address.isRemote);
   const couponDiscount = appliedCoupon ? appliedCoupon.discount : 0;
   const pointDiscount = usePoint ? Math.min(pointInput, member.point, itemTotal) : 0;
-  const finalPrice = itemTotal + shippingFee - couponDiscount - pointDiscount;
+  const basePrice = itemTotal + shippingFee - couponDiscount - pointDiscount;
+  // Price 컴포넌트의 할인 금액 산정 로직을 부모에서 관리
+  const finalPrice = Math.round(basePrice * (1 - DISCOUNT_RATE[member.grade]));
 
   const handleApplyCoupon = () => {
     const found = COUPONS.find((c) => c.code === couponCode.trim());
@@ -93,7 +96,7 @@ export function CheckoutPage() {
         />
         <button className="pay" disabled={!agreed} onClick={() => setPlaced(true)}>
           {/* 공통 가격 컴포넌트를 결제 버튼에도 반영 */}
-          <Price amount={finalPrice} member={member} /> 결제하기
+          <Price value={finalPrice} /> 결제하기
         </button>
         <TermsModal />
         <PastOrder />
