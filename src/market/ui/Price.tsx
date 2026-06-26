@@ -1,4 +1,4 @@
-import { DISCOUNT_RATE } from '../../shared/constants/discount';
+import { DISCOUNT_RATE } from '../../shared/constants/gradeDiscount';
 import type { Member } from '../types/types';
 
 type Props = {

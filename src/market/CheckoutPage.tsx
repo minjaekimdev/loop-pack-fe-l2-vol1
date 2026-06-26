@@ -13,10 +13,10 @@ import { PastOrder } from './ui/PastOrder';
 import { PaymentMethod } from './ui/PaymentMethod';
 import { FinalPrice } from './ui/FinalPrice';
 import { Terms } from './ui/Terms';
-import { calculateCheckout } from './utils/calculateCheckout';
 import { ModalProvider } from '../shared/ui/modal/ModalProvider';
 import { TermsModal } from './ui/TermsModal';
 import { Price } from './ui/Price';
+import { calculateShippingFee } from './utils/calculateShipppingFee';
 
 // 결제 페이지 전체의 흐름과 레이아웃이라는 페이지 컴포넌트 본연의 역할에만 집중할 수 있도록(1, 2, 3 위배)
 export function CheckoutPage() {
@@ -33,16 +33,11 @@ export function CheckoutPage() {
   const [placed, setPlaced] = useState(false);
 
   const address = ADDRESSES.find((a) => a.id === selectedAddressId)!;
-
-  // 결제 금액을 구하는 비즈니스 로직은 별도 함수로 분리
-  const { itemTotal, shippingFee, couponDiscount, pointDiscount, finalPrice } = calculateCheckout(
-    cart,
-    address,
-    appliedCoupon,
-    usePoint,
-    pointInput,
-    member
-  );
+  const itemTotal = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
+  const shippingFee = calculateShippingFee(itemTotal, address.isRemote);
+  const couponDiscount = appliedCoupon ? appliedCoupon.discount : 0;
+  const pointDiscount = usePoint ? Math.min(pointInput, member.point, itemTotal) : 0;
+  const finalPrice = itemTotal + shippingFee - couponDiscount - pointDiscount;
 
   const handleApplyCoupon = () => {
     const found = COUPONS.find((c) => c.code === couponCode.trim());
