@@ -1,23 +1,18 @@
 import { PriceLineRow } from './PriceLineRow';
 import { Price } from './Price';
 import { SectionContainer } from '../shared/ui/container';
-import type { Coupon } from '../shared/types/types';
+import type { Coupon, PaymentAmounts } from '../shared/types/types';
 
 export const FinalPrice = ({
-  itemTotal,
-  shippingFee,
   appliedCoupon,
-  couponDiscount,
-  pointDiscount,
+  amount,
   finalPrice,
 }: {
-  itemTotal: number;
-  shippingFee: number;
   appliedCoupon: Coupon | null;
-  couponDiscount: number;
-  pointDiscount: number;
+  amount: PaymentAmounts;
   finalPrice: number;
 }) => {
+  const { itemTotal, shippingFee, couponDiscount, pointDiscount } = amount;
   return (
     <SectionContainer title="결제 금액">
       <PriceLineRow type="subtotal" amount={itemTotal} />

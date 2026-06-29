@@ -1,9 +1,9 @@
 export const PriceInput = ({
   price,
-  callback,
+  onValueChange,
 }: {
   price: number;
-  callback: (value: number) => void;
+  onValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
     <input
@@ -14,10 +14,7 @@ export const PriceInput = ({
       pattern="[0-9]*"
       // value에도 toLocaleString()을 적용하여 가독성 향상
       value={price.toLocaleString()}
-      onChange={(e) => {
-        const value = parseInt(e.target.value.replace(/,/g, ''), 10) || 0;
-        callback(value);
-      }}
+      onChange={onValueChange}
       onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
         if (
           !/[0-9]/.test(e.key) &&

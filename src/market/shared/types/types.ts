@@ -21,6 +21,14 @@ export type Address = {
   isRemote: boolean; // 도서산간 → 배송비 추가
 };
 
+export type PaymentAmounts = {
+  itemTotal: number;
+  shippingFee: number;
+  couponDiscount: number;
+  pointDiscount: number;
+  memberDiscount: number;
+};
+
 export type PaymentMethod = 'card' | 'transfer' | 'kakao';
 
 // Grade 타입 추가

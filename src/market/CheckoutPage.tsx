@@ -19,8 +19,14 @@ import { Terms } from './ui/Terms';
 import { ModalProvider } from '../shared/ui/modal/ModalProvider';
 import { TermsModal } from './ui/TermsModal';
 import { Price } from './ui/Price';
-import { calculateShippingFee } from './utils/calculateShipppingFee';
-import { DISCOUNT_RATE } from './shared/constants/gradeDiscount';
+import {
+  calculateFinalPrice,
+  calculateMemberDiscount,
+  calculatePointDiscount,
+  calculateShippingFee,
+  calculateTotal,
+  calulateCouponDiscount,
+} from './utils';
 
 // 결제 페이지 전체의 흐름과 레이아웃이라는 페이지 컴포넌트 본연의 역할에만 집중할 수 있도록(1, 2, 3 위배)
 export function CheckoutPage() {
@@ -30,20 +36,23 @@ export function CheckoutPage() {
   const [selectedAddressId, setSelectedAddressId] = useState(ADDRESSES[0].id);
   const [couponCode, setCouponCode] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState<CouponType | null>(null);
-  const [usePoint, setUsePoint] = useState(false);
   const [pointInput, setPointInput] = useState(member.point); // 기본적으로 최대 적립금이 적용되도록 변경
   const [payment, setPayment] = useState<PaymentMethodType>('card');
   const [agreed, setAgreed] = useState(false);
   const [placed, setPlaced] = useState(false);
 
   const address = ADDRESSES.find((a) => a.id === selectedAddressId)!;
-  const itemTotal = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
-  const shippingFee = calculateShippingFee(itemTotal, address.isRemote);
-  const couponDiscount = appliedCoupon ? appliedCoupon.discount : 0;
-  const pointDiscount = usePoint ? Math.min(pointInput, member.point, itemTotal) : 0;
-  const basePrice = itemTotal + shippingFee - couponDiscount - pointDiscount;
-  // Price 컴포넌트의 할인 금액 산정 로직을 부모에서 관리
-  const finalPrice = Math.round(basePrice * (1 - DISCOUNT_RATE[member.grade]));
+
+  const itemTotal = calculateTotal(cart);
+  const amount = {
+    itemTotal,
+    shippingFee: calculateShippingFee(itemTotal, address.isRemote),
+    couponDiscount: calulateCouponDiscount(appliedCoupon),
+    memberDiscount: calculateMemberDiscount(itemTotal, member),
+    pointDiscount: calculatePointDiscount(pointInput, member.point, itemTotal),
+  };
+
+  const finalPrice = calculateFinalPrice(amount);
 
   const handleApplyCoupon = () => {
     const found = COUPONS.find((c) => c.code === couponCode.trim());
@@ -76,22 +85,13 @@ export function CheckoutPage() {
         />
 
         <Point
-          usePoint={usePoint}
           pointInput={pointInput}
           availablePoint={member.point}
-          onToggleCheckbox={(e) => setUsePoint(e.target.checked)}
           onInputChange={setPointInput}
         />
 
         <PaymentMethod payment={payment} onPaymentMethodChange={(m) => setPayment(m)} />
-        <FinalPrice
-          itemTotal={itemTotal}
-          shippingFee={shippingFee}
-          appliedCoupon={appliedCoupon}
-          couponDiscount={couponDiscount}
-          pointDiscount={pointDiscount}
-          finalPrice={finalPrice}
-        />
+        <FinalPrice appliedCoupon={appliedCoupon} amount={amount} finalPrice={finalPrice} />
         <Terms
           agreed={agreed}
           onToggleCheckbox={(e: React.ChangeEvent<HTMLInputElement>) => setAgreed(e.target.checked)}
